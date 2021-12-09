@@ -33,7 +33,6 @@ class Day8 {
         var sum = 0
         for (l in letters) {
             val map = getCodeMap(l[0])
-            println(map)
             var num = 0
             for (n in l[1]) {
                 val value = map[n.toCharArray().sorted().joinToString("")]!!
