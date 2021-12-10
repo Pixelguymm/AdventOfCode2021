@@ -26,7 +26,7 @@ class Day5 {
     fun partOne(lines : List<List<List<Int>>>) {
         val straightLines = lines.filter { l ->
             l[0][0] == l[1][0] ||
-                    l[0][1] == l[1][1]
+            l[0][1] == l[1][1]
         }
 
         findDuplicates(straightLines)
