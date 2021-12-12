@@ -13,10 +13,9 @@ fun main() {
         }
     }
     for (l in lines) {
-        connections[l[0]] = connections[l[0]]?.plus(l[1]) ?:  listOf(l[1])
-        connections[l[1]] = connections[l[1]]?.plus(l[0]) ?:  listOf(l[0])
+        connections[l[0]] = connections[l[0]]?.plus(l[1]) ?: listOf(l[1])
+        connections[l[1]] = connections[l[1]]?.plus(l[0]) ?: listOf(l[0])
     }
-    println(connections)
 
     Day12().also {
         it.partOne(connections)
