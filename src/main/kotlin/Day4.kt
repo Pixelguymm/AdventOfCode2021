@@ -16,18 +16,18 @@ fun main() {
         }
     }
 
-    Day4().also {
-        it.partOne(numbers, boards)
-        it.partTwo(numbers, boards)
+    Day4(numbers, boards).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day4 {
-    fun partOne(numbers : List<Int>, boards : List<List<List<Int>>>) {
+class Day4(private val numbers : List<Int>, private val boards : List<List<List<Int>>>) {
+    fun partOne() {
         var picked = listOf<Int>()
-        for (n in numbers) {
+        for (n in this.numbers) {
             picked = picked.plus(n)
-            for (b in boards) {
+            for (b in this.boards) {
                 val bingo = evaluateBoard(picked, b)
                 if (!bingo) continue
 
@@ -37,10 +37,10 @@ class Day4 {
         }
     }
 
-    fun partTwo(numbers : List<Int>, boards : List<List<List<Int>>>) {
-        var losers = boards
+    fun partTwo() {
+        var losers = this.boards
         var picked = listOf<Int>()
-        for (n in numbers) {
+        for (n in this.numbers) {
             picked = picked.plus(n)
 
             if (losers.size == 1) {

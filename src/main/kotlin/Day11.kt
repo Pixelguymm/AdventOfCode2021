@@ -11,15 +11,15 @@ fun main() {
         }.toMutableList()
     }
 
-    Day11().also {
-        it.partOne(squids)
-        it.partTwo(squids)
+    Day11(squids).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day11 {
-    fun partOne(input : List<MutableList<Int>>) {
-        var octopi = input
+class Day11(private val input : List<MutableList<Int>>) {
+    fun partOne() {
+        var octopi = this.input
         var count = 0
         for (i in 1..100) {
             octopi = nextStep(octopi)
@@ -28,8 +28,8 @@ class Day11 {
         println(count)
     }
 
-    fun partTwo(input : List<MutableList<Int>>) {
-        var octopi = input
+    fun partTwo() {
+        var octopi = this.input
         var count = 0
         while (true) {
             if (octopi.all { l -> l.all { o -> o == 0 } }) break

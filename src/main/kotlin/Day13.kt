@@ -17,23 +17,23 @@ fun main() {
         Fold(f[0], f[1].toInt())
     }
 
-    Day13().also {
-        it.partOne(points, folds)
-        it.partTwo(points, folds)
+    Day13(points, folds).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day13 {
-    fun partOne(points : List<List<Int>>, folds: List<Fold>) {
-        val pts = points.map { p ->
-            fold(folds[0], p)
+class Day13(private val points : List<List<Int>>, private val folds: List<Fold>) {
+    fun partOne() {
+        val pts = this.points.map { p ->
+            fold(this.folds[0], p)
         }.distinct()
         println(pts.size)
     }
 
-    fun partTwo(points : List<List<Int>>, folds: List<Fold>) {
-        var pts = points
-        for (f in folds) {
+    fun partTwo() {
+        var pts = this.points
+        for (f in this.folds) {
             pts = pts.map { p ->
                 fold(f, p)
             }.distinct()

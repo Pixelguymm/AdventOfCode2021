@@ -11,13 +11,13 @@ fun main() {
         l.trim()
     }
 
-    Day10().also {
-        it.partOne(lines)
-        it.partTwo(lines)
+    Day10(lines).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day10 {
+class Day10(private val lines : List<String>) {
     private val brackets = mapOf(
         '(' to ')',
         '[' to ']',
@@ -39,30 +39,30 @@ class Day10 {
         '>' to 4
     )
 
-    fun partOne(lines : List<String>) {
+    fun partOne() {
         var badChars = ""
-        for (l in lines) {
+        for (l in this.lines) {
             val wrongBracket = checkLine(l)
             if (wrongBracket.corrupted) badChars += wrongBracket
         }
 
         println(badChars.sumOf { c ->
-            illegalScores[c] ?: 0
+            this.illegalScores[c] ?: 0
         })
     }
 
-    fun partTwo(lines : List<String>) {
+    fun partTwo() {
         val scores = mutableListOf<Long>()
-        for (l in lines) {
+        for (l in this.lines) {
             var score : Long = 0
             val result = checkLine(l)
             if (result.corrupted) continue
 
             val missing = result.unclosed?.map { c ->
-                brackets[c]
+                this.brackets[c]
             }?.reversed()
             missing?.forEach { c ->
-                score = score * 5 + (autoCompleteScores[c] ?: 0)
+                score = score * 5 + (this.autoCompleteScores[c] ?: 0)
             }
 
             scores.add(score)
@@ -74,10 +74,10 @@ class Day10 {
     private fun checkLine(line : String) : TestResult {
         var openings = ""
         for (c in line) {
-            if (brackets.keys.contains(c)) {
+            if (this.brackets.keys.contains(c)) {
                 openings += c
             }
-            else if (brackets[openings.last()] == c) {
+            else if (this.brackets[openings.last()] == c) {
                 openings = openings.dropLast(1)
             }
             else {

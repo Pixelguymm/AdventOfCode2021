@@ -13,15 +13,15 @@ fun main() {
         }
     }
 
-    Day8().also {
-        it.partOne(letters)
-        it.partTwo(letters)
+    Day8(letters).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day8 {
-    fun partOne(letters: List<List<List<String>>>) {
-        println(letters.sumOf { l ->
+class Day8(private val letters: List<List<List<String>>>) {
+    fun partOne() {
+        println(this.letters.sumOf { l ->
             l[1].count { n ->
                 listOf(2, 3, 4, 7).contains(n.length)
             }
@@ -29,9 +29,9 @@ class Day8 {
 
     }
 
-    fun partTwo(letters: List<List<List<String>>>) {
+    fun partTwo() {
         var sum = 0
-        for (l in letters) {
+        for (l in this.letters) {
             val map = getCodeMap(l[0])
             var num = 0
             for (n in l[1]) {

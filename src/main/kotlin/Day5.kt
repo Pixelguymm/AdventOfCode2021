@@ -16,15 +16,15 @@ fun main() {
         }
     }
 
-    Day5().also {
-        it.partOne(lines)
-        it.partTwo(lines)
+    Day5(lines).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day5 {
-    fun partOne(lines : List<List<List<Int>>>) {
-        val straightLines = lines.filter { l ->
+class Day5(private val lines : List<List<List<Int>>>) {
+    fun partOne() {
+        val straightLines = this.lines.filter { l ->
             l[0][0] == l[1][0] ||
             l[0][1] == l[1][1]
         }
@@ -32,8 +32,8 @@ class Day5 {
         findDuplicates(straightLines)
     }
 
-    fun partTwo(lines : List<List<List<Int>>>) {
-        findDuplicates(lines)
+    fun partTwo() {
+        findDuplicates(this.lines)
     }
 
     private fun findDuplicates(lines : List<List<List<Int>>>) {

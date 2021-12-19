@@ -11,29 +11,29 @@ fun main() {
         f.trim().toInt()
     }
 
-    Day7().also {
-        it.partOne(positions)
-        it.partTwo(positions)
+    Day7(positions).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day7 {
-    fun partOne(positions : List<Int>) {
-        println(getOptimalPosition(positions, ::getFuel))
+class Day7(private val positions : List<Int>) {
+    fun partOne() {
+        println(getOptimalPosition(::getFuel))
     }
 
-    fun partTwo(positions : List<Int>) {
-        println(getOptimalPosition(positions, ::getFuelByDistance))
+    fun partTwo() {
+        println(getOptimalPosition(::getFuelByDistance))
     }
 
-    private fun getOptimalPosition(positions : List<Int>, method: (List<Int>, Int) -> Int): Int {
-        var min = positions.minOrNull() ?: 0
-        var max = positions.maxOrNull() ?: 0
+    private fun getOptimalPosition(method: (Int) -> Int): Int {
+        var min = this.positions.minOrNull() ?: 0
+        var max = this.positions.maxOrNull() ?: 0
 
         while (max - min > 1) {
             val average = (max + min) / 2
-            val upper = method(positions, average)
-            val lower = method(positions, average - 1)
+            val upper = method(average)
+            val lower = method(average - 1)
 
             if (upper < lower) {
                 min = average
@@ -43,20 +43,20 @@ class Day7 {
             }
         }
 
-        return method(positions, min)
+        return method(min)
     }
 
-    private fun getFuel(positions : List<Int>, goal : Int) : Int {
+    private fun getFuel(goal : Int) : Int {
         var fuel = 0
-        for (i in positions) {
+        for (i in this.positions) {
             fuel += abs(i - goal)
         }
         return fuel
     }
 
-    private fun getFuelByDistance(positions : List<Int>, goal : Int) : Int {
+    private fun getFuelByDistance(goal : Int) : Int {
         var fuel = 0
-        for (i in positions) {
+        for (i in this.positions) {
             fuel += List(abs(i - goal)) { it + 1}.sum()
         }
         return fuel

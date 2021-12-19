@@ -10,17 +10,17 @@ fun main() {
     val directions = input.split("\n").map { n ->
         n.trim().split(" ")
     }
-    Day2().also {
-        it.partOne(directions)
-        it.partTwo(directions)
+    Day2(directions).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day2 {
-    fun partOne(directions : List<List<String>>) {
+class Day2(private val directions: List<List<String>>) {
+    fun partOne() {
         var x = 0
         var y = 0
-        for (d in directions) {
+        for (d in this.directions) {
             val num = (d[1].toIntOrNull() ?: 0)
             if (d[0] == "up") y += num
             else if (d[0] == "down") y -= num
@@ -30,11 +30,11 @@ class Day2 {
         println(x * abs(y))
     }
 
-    fun partTwo(directions : List<List<String>>) {
+    fun partTwo() {
         var x = 0
         var y = 0
         var aim = 0
-        for (d in directions) {
+        for (d in this.directions) {
             val num = (d[1].toIntOrNull() ?: 0)
             if (d[0] == "up") aim += num
             else if (d[0] == "down") aim -= num

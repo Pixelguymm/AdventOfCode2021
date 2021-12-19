@@ -11,20 +11,20 @@ fun main() {
         }
     }
 
-    Day9().also {
-        it.partOne(points)
-        it.partTwo(points)
+    Day9(points).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day9 {
-    fun partOne(points : List<List<Int>>) {
-        val lowPoints = getLowest(points)
-        println(lowPoints.sumOf { p -> points[p[0]][p[1]] + 1 })
+class Day9(private val points : List<List<Int>>) {
+    fun partOne() {
+        val lowPoints = getLowest()
+        println(lowPoints.sumOf { p -> this.points[p[0]][p[1]] + 1 })
     }
 
-    fun partTwo(points : List<List<Int>>) {
-        val lowPoints = getLowest(points)
+    fun partTwo() {
+        val lowPoints = getLowest()
         val basins = mutableListOf<List<List<Int>>>()
 
         for (point in lowPoints) {
@@ -36,8 +36,8 @@ class Day9 {
                 next.clear()
 
                 for (p in current) {
-                    val neighbours = getNeighbours(p[0], p[1], points).filter { n ->
-                        points[n[0]][n[1]] != 9
+                    val neighbours = getNeighbours(p[0], p[1]).filter { n ->
+                        this.points[n[0]][n[1]] != 9
                     }
                     for (n in neighbours) {
                         if (!basin.contains(n)) {
@@ -60,11 +60,11 @@ class Day9 {
         println(sizes[0] * sizes[1] * sizes[2])
     }
 
-    private fun getLowest(points : List<List<Int>>) : List<List<Int>> {
+    private fun getLowest() : List<List<Int>> {
         val lowPoints = mutableListOf<List<Int>>()
-        for (x in points.indices) {
-            for (y in points[0].indices) {
-                val low = checkLowest(x, y, points)
+        for (x in this.points.indices) {
+            for (y in this.points[0].indices) {
+                val low = checkLowest(x, y)
                 if (low) lowPoints.add(listOf(x, y))
             }
         }
@@ -72,26 +72,26 @@ class Day9 {
         return lowPoints.toList()
     }
 
-    private fun checkLowest(x : Int, y : Int, points : List<List<Int>>) : Boolean {
-        val point = points[x][y]
+    private fun checkLowest(x : Int, y : Int) : Boolean {
+        val point = this.points[x][y]
 
         if (point == 0) return true
         if (point == 9) return false
 
-        val neighbours = getNeighbours(x, y, points)
+        val neighbours = getNeighbours(x, y)
 
         return neighbours.all { n ->
-            points[n[0]][n[1]] >= point
+            this.points[n[0]][n[1]] >= point
         }
     }
 
-    private fun getNeighbours(x : Int, y : Int, points : List<List<Int>>) : List<List<Int>> {
+    private fun getNeighbours(x : Int, y : Int) : List<List<Int>> {
         val neighbours = mutableListOf<List<Int>>()
 
         if (x > 0) neighbours.add(listOf(x - 1, y))
-        if (x < points.size - 1) neighbours.add(listOf(x + 1, y))
+        if (x < this.points.size - 1) neighbours.add(listOf(x + 1, y))
         if (y > 0) neighbours.add(listOf(x, y - 1))
-        if (y < points[0].size - 1) neighbours.add(listOf(x, y + 1))
+        if (y < this.points[0].size - 1) neighbours.add(listOf(x, y + 1))
 
         return neighbours.toList()
     }

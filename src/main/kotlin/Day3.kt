@@ -12,17 +12,17 @@ fun main() {
     }
     println(binNumbers)
 
-    Day3().also {
-        it.partOne(binNumbers)
-        it.partTwo(binNumbers)
+    Day3(binNumbers).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day3 {
-    fun partOne(binNumbers : List<String>) {
-        val counters = IntArray(12) { it * 0 }
+class Day3(private val binNumbers : List<String>) {
+    fun partOne() {
+        val counters = IntArray(12) { 0 }
 
-        for (num in binNumbers) {
+        for (num in this.binNumbers) {
             for (i in num.indices) {
                 if (num[i] == '1') counters[i]++
             }
@@ -31,8 +31,8 @@ class Day3 {
         var gamma = ""
         var epsilon = ""
         for (c in counters) {
-            gamma += if (c >= binNumbers.size / 2) "1" else "0"
-            epsilon += if (c >= binNumbers.size / 2) "0" else "1"
+            gamma += if (c >= this.binNumbers.size / 2) "1" else "0"
+            epsilon += if (c >= this.binNumbers.size / 2) "0" else "1"
         }
 
         val g = gamma.toInt(2)
@@ -41,9 +41,9 @@ class Day3 {
         println(g * e)
     }
 
-    fun partTwo(binNumbers : List<String>) {
-        val o2 = getOxygen(binNumbers, 0).toInt(2)
-        val co2 = getCarbonDioxide(binNumbers, 0).toInt(2)
+    fun partTwo() {
+        val o2 = getOxygen(this.binNumbers, 0).toInt(2)
+        val co2 = getCarbonDioxide(this.binNumbers, 0).toInt(2)
 
         println(o2 * co2)
     }

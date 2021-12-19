@@ -17,29 +17,29 @@ fun main() {
         connections[l[1]] = connections[l[1]]?.plus(l[0]) ?: listOf(l[0])
     }
 
-    Day12().also {
-        it.partOne(connections)
-        it.partTwo(connections)
+    Day12(connections).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day12 {
-    fun partOne(connections : Map<String, List<String>>) {
-        println(countPaths(connections, listOf(), "start"))
+class Day12(private val connections : Map<String, List<String>>) {
+    fun partOne() {
+        println(countPaths(listOf(), "start"))
     }
 
-    fun partTwo(connections : Map<String, List<String>>) {
-        println(countPathsTwice(connections, listOf(), "start", false))
+    fun partTwo() {
+        println(countPathsTwice(listOf(), "start", false))
     }
 
-    private fun countPaths(map : Map<String, List<String>>, visited : List<String>, start : String) : Int {
+    private fun countPaths(visited : List<String>, start : String) : Int {
         if (start.lowercase() == start && visited.contains(start)) return 0
         if (start == "end") return 1
 
-        return map[start]?.sumOf { c -> countPaths(map, visited.plus(start), c) } ?: 0
+        return this.connections[start]?.sumOf { c -> countPaths(visited.plus(start), c) } ?: 0
     }
 
-    private fun countPathsTwice(map : Map<String, List<String>>, visited : List<String>, start : String, visitedTwice : Boolean) : Int {
+    private fun countPathsTwice(visited : List<String>, start : String, visitedTwice : Boolean) : Int {
         var v = visitedTwice
         if (start == "start" && visited.contains(start)) return 0
         if (start.lowercase() == start) {
@@ -48,6 +48,6 @@ class Day12 {
         }
         if (start == "end") return 1
 
-        return map[start]?.sumOf { c -> countPathsTwice(map, visited.plus(start), c, v) } ?: 0
+        return this.connections[start]?.sumOf { c -> countPathsTwice(visited.plus(start), c, v) } ?: 0
     }
 }

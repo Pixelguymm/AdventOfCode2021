@@ -9,21 +9,21 @@ fun main() {
         n.trim().toInt()
     }
 
-    Day1().also {
-        it.partOne(scans)
-        it.partTwo(scans)
+    Day1(scans).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day1 {
-    fun partOne(scans : List<Int>) = countIncreases(scans, 1)
+class Day1(private val scans : List<Int>) {
+    fun partOne() = countIncreases(1)
 
-    fun partTwo(scans : List<Int>) = countIncreases(scans, 3)
+    fun partTwo() = countIncreases(3)
 
-    private fun countIncreases(scans : List<Int>, gap : Int) {
+    private fun countIncreases(gap : Int) {
         var counter = 0
-        for (s in gap until scans.size) {
-            if (scans[s] > scans[s - gap]) counter ++
+        for (s in gap until this.scans.size) {
+            if (this.scans[s] > this.scans[s - gap]) counter ++
         }
 
         println(counter)

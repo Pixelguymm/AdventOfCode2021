@@ -9,24 +9,24 @@ fun main() {
         f.trim().toInt()
     }
 
-    Day6().also {
-        it.partOne(fish)
-        it.partTwo(fish)
+    Day6(fish).also {
+        it.partOne()
+        it.partTwo()
     }
 }
 
-class Day6 {
-    fun partOne(fish : List<Int>) {
-        println(getFish(fish, 80))
+class Day6(private val fish : List<Int>) {
+    fun partOne() {
+        println(getFish(80))
     }
 
-    fun partTwo(fish : List<Int>) {
-        println(getFish(fish, 256))
+    fun partTwo() {
+        println(getFish(256))
     }
 
-    private fun getFish(fish : List<Int>, days : Int) : Long {
+    private fun getFish( days : Int) : Long {
         val cycles = mutableMapOf<Int, Long>()
-        fish.sorted().forEach { i ->
+        this.fish.sorted().forEach { i ->
             cycles[i] = (cycles[i] ?: 0) + 1
         }
 
