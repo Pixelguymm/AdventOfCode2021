@@ -7,7 +7,7 @@ fun main() {
 
     val points = input.split("\n").map { l ->
         l.trim().toCharArray().map { n ->
-            n.toString().toInt()
+            n.digitToInt()
         }
     }
 
