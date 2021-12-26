@@ -21,6 +21,9 @@ fun main() {
 }
 
 class Day15(private val grid : List<List<Int>>) {
+    private var queue = PriorityQueue<Node> {a, b -> a.priority - b.priority}
+    private var finished = mutableSetOf<Point>()
+
     fun partOne() {
         println(search(this.grid))
     }
@@ -62,9 +65,6 @@ class Day15(private val grid : List<List<Int>>) {
         }
         return this.queue.first().risk
     }
-
-    private var queue = PriorityQueue<Node>() {a, b -> a.priority - b.priority}
-    private var finished = mutableSetOf<Point>()
 }
 
 class Node(val point: Point, private val grid : List<List<Int>>, val risk : Int) {
