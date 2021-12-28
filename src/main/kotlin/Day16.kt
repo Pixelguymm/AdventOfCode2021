@@ -77,7 +77,6 @@ class PacketReader(private var binary : String) {
                 return Packet(version, type, null, subPackets)
             }
         }
-
     }
 }
 
