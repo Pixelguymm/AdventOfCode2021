@@ -30,9 +30,7 @@ class Day17(private val field : Field) {
         var xVel = 1
 
         while (true) {
-            println("$xVel, $yVel")
             val endPoint = Probe(xVel, yVel, it).getEndPoint()
-            println("-> ${endPoint.xPos}, ${endPoint.yPos}")
 
             if (endPoint.passesField) {
                 hits.add(endPoint)
